@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Taiwan Trip 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f3f4f6;--c:#fff;--t:#1f2933;--m:#6b7280;--a:#c0392b;--g:#1e6b45;--b:#e2e5ea;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+:root[data-theme=dark]{--bg:#141a20;--c:#1e262e;--t:#f0ebe4;--m:#a39a90;--b:#33404b;--a:#d9483d;--g:#5fd0a0;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;font:15px/1.45 system-ui,"Noto Sans Thai",sans-serif;background:radial-gradient(#fff 1.5px,transparent 2px) 0 0/28px 28px,var(--bg);color:var(--t);padding-bottom:84px}
+header{padding:14px 16px;background:linear-gradient(135deg,#b3261e,#c0392b 55%,#1e6b45);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cd{font-size:22px;font-weight:800}header small{opacity:.9}
+button{font:inherit;cursor:pointer}header button{background:#fff3;color:#fff;border:1px solid #fff8;border-radius:10px;padding:8px 12px}
+.card{background:var(--c);border:1px solid var(--b);border-left:4px solid var(--g);border-radius:14px;padding:12px;margin:10px 12px;box-shadow:0 1px 3px #0001}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px}.tabs button{flex:none;border:1px solid var(--b);background:var(--c);color:var(--t);border-radius:20px;padding:7px 13px}
+.on{background:var(--a)!important;color:#fff!important}
+.i{width:100%;padding:8px;margin:3px 0;border:1px solid var(--b);border-radius:8px;background:var(--bg);color:var(--t);font:inherit}
+.st{display:flex;gap:10px;padding:10px 0;border-top:1px solid var(--b)}input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--g)}.b{flex:1;min-width:0}
+.dn{text-decoration:line-through;opacity:.55}.m{color:var(--m);font-size:13px}.tm{color:var(--a);font-weight:700}
+.lk a{margin-right:12px;color:var(--g);font-weight:600;text-decoration:none;font-size:13px}
+.ad,.x{border:1px dashed var(--m);background:none;color:var(--t);border-radius:10px;padding:8px 12px;margin:6px 6px 0 0}
+.r{display:flex;align-items:center;gap:10px;padding:6px 0}.r .i{flex:1}h3{margin:0 0 6px;color:var(--g)}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--c);border-top:1px solid var(--b);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;background:none;color:var(--m);padding:9px 0;font-size:12px}nav button.on{background:none!important;color:var(--a)!important;font-weight:700}
+.zh{font-size:20px}.py{color:var(--g)}.ph{padding:8px 0;border-top:1px solid var(--b);display:flex;justify-content:space-between;gap:8px}.wr{display:flex;justify-content:space-between;padding:4px 0;border-top:1px solid var(--b)}
+textarea.i{min-height:110px}.gr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.sn{border:1px solid var(--b);border-radius:12px;padding:6px;background:var(--bg)}.sn img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block}.sc{display:flex;align-items:center;gap:6px;font-size:13px;margin:6px 0 2px}.sc input{width:20px;height:20px}.lt{height:10px;background:repeating-linear-gradient(90deg,#c0392b 0 14px,#f5d76e 14px 28px,#1e6b45 28px 42px,#fff 42px 56px)}
+</style></head><body>
+<header> <div>
+
+    <small>🎄 Taiwan Solo Christmas Trip · 23–27 ธ.ค. ✨</small>
+
+    <div class="cd" id="cd"></div>
+
+    <small>ก่อนบินขาไป TG632</small>
+
+  </div>
+
+  <div style="display:flex; gap:6px; align-items:center;">
+
+    <button id="auth-btn" style="background:#fff2; font-size:12px; padding:6px 10px;">🔐 ล็อกอิน</button>
+
+    <button id="ed" data-a="ed" style="display:none;"></button>
+
+  </div></header>
+<div class="lt"></div><main id="app"></main>
+<nav><button data-a="tab" data-v="plan">🗓<br>แผน</button><button data-a="tab" data-v="lists">✅<br>รายการ</button><button data-a="tab" data-v="food">🍜<br>ร้านกิน</button><button data-a="tab" data-v="tools">🧰<br>เครื่องมือ</button><button data-a="tab" data-v="docs">📄<br>เอกสาร</button></nav>
+<script>
+// --- ตั้งค่าการเชื่อมต่อ Supabase ---
+const SUPABASE_URL = 'azvjfyvlsytraxbnrvig';
+const SUPABASE_KEY = 'sb_publishable__MwopXn0QZKNGCz4rg_D3w_34ik0dZp';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const K='tw26', $=s=>document.querySelector(s), cp=o=>JSON.parse(JSON.stringify(o));
+const s=(t,n,m,q)=>({t,n,m,q,d:0}), it=t=>({t,d:0});
+
+const D={rate:1.05,notes:'',shop:[],food:[],snacks:[],
+days:[
+{h:'Day 1 · 23',s:'Arrival',date:'2026-12-23',o:'',stops:[
+s('13:00','Taoyuan Airport T1 → Taipei Main (A1)','Airport MRT (สายม่วง) ไป Taipei Main','Taoyuan International Airport Terminal 1'),
+s('15:15','เช็กอิน Formosa101 Hotel','ออกทาง Exit Z10','Formosa101 Hotel Taipei'),
+s('17:45','Ningxia Night Market','สายแดง (RL) ลง Shuanglian (R12)','Ningxia Night Market Taipei')]},
+{h:'Day 2 · 24',s:'Qingtiangang · Beitou · Tamsui',date:'2026-12-24',o:'',stops:[
+s('08:00','Taipei Main → Jiantan (R15)','สายแดง RL','Jiantan Station Taipei'),
+s('09:20','Qingtiangang Grassland (ถึง ~10:20)','บัส S15 (15 NT$ · 45 นาที) หรือ R5 ไป Yangmingshan แล้วต่อ 108','Qingtiangang Grassland'),
+s('10:30','Qingtiangang → Jiantan (R15)','บัส S15 กลับ Jiantan แล้วสายแดงไป Beitou ~20 นาที (ต่อ Xinbeitou)','Jiantan Station Taipei'),
+s('12:00','Beitou','','Beitou Station Taipei'),
+s('12:15','Shanxi Beef Noodles 山西刀削番茄牛肉麵','เดิน ~5 นาที','山西刀削番茄牛肉麵 北投'),
+s('13:00','Thermal Valley (ถึง ~13:30)','Beitou Hot Spring Museum ปิด','Thermal Valley Beitou'),
+s('14:00','Beitou Hot Spring Resort (ถึง ~15:15)','','Beitou Hot Spring Resort'),
+s('15:45','Tamsui','สายแดง ~18 นาที','Tamsui Station Taipei')]},
+{h:'Day 3 · 25',s:'Christmas',date:'2026-12-25',o:'',stops:[
+s('09:45','Ximending · Prosperity Plaza Guilin Store','','Prosperity Plaza Guilin Store Taipei'),
+s('11:00','Lunch 滷味','','Ximending Taipei'),
+s('12:00','Zhongshan (ถึง ~14:00)','CREEK by JKS Taipei · PaiPai Canoli · Iyoshi Cola','Zhongshan Station Taipei'),
+s('14:40','Dongmen (R08) → Yongkang (ถึง ~16:00)','Sweedom · L’Atelier Lotus','Yongkang Street Taipei'),
+s('17:45','Xinyi → Taipei City Hall (BL18)','小器食堂 微風南山店 · 丘香 Sake bar','Taipei City Hall Station')]},
+{h:'Day 4 · 26',s:'Bitoujiao · Fulong',date:'2026-12-26',o:'',stops:[
+s('08:00','Taipei Main → Ruifang','รถไฟ TRA ~50 นาที','Ruifang Station'),
+s('09:10','Bitoujiao (ถึง ~10:15)','บัส 856 (Residents’ Square) / 791 ไป Bitoujiao (ป้าย Magang) · Tingtao cafe','Bitoujiao Trail'),
+s('12:00','ไป Fulong','บัส 856 หรือ 791','Fulong Station'),
+s('13:30','Lunch: Fuxin Fulong Lunchbox','','Fulong Bento Fuxin'),
+s('14:00','Fulong Beach ปั่นจักรยาน (ถึง ~16:30)','','Fulong Beach'),
+s('17:15','Fulong → Taipei Main (ถึง ~19:00)','','Fulong Station')]},
+{h:'Day 5 · 27',s:'Dihua · กลับ',date:'2026-12-27',o:'',stops:[
+s('10:30','เช็กเอาต์ / Fu Hang Soy Milk','','Fu Hang Soy Milk Taipei'),
+s('11:30','44 South Military Village','Taipei Main → สายแดง Taipei 101 (R03)','44 South Village Taipei'),
+s('12:30','Dihua Street (ถึง ~14:30)','Taipei 101 → Chiang Kai-shek → สายเขียว Beimen · Rice & Shine · Du Hsiao Yueh Dan Zai Noodles','Dihua Street Taipei'),
+s('15:00','ไปสนามบิน','HSR A1 Taipei Main → A12 Airport Terminal 1','Taoyuan International Airport Terminal 1')]}],
+keys:[
+{t:'เช็กอินออนไลน์ TG632 (ปกติเปิด ~24 ชม. ก่อนบิน)',d:'2026-12-22',tm:'08:15',z:'Asia/Bangkok'},
+{t:'เตรียมของ: พาสปอร์ต ตั๋ว ที่ชาร์จ',d:'2026-12-22',tm:'20:00',z:'Asia/Bangkok'},
+{t:'ออกจากบ้านไปสนามบิน BKK',d:'2026-12-23',tm:'05:00',z:'Asia/Bangkok'},
+{t:'TG632 BKK → TPE ขึ้นเครื่อง',d:'2026-12-23',tm:'08:15',z:'Asia/Bangkok'},
+{t:'เช็กอินออนไลน์ TG635 (ขากลับ)',d:'2026-12-26',tm:'18:50',z:'Asia/Taipei'},
+{t:'เช็กเอาต์โรงแรม',d:'2026-12-27',tm:'10:30',z:'Asia/Taipei'},
+{t:'ไปสนามบิน (HSR A1 → A12)',d:'2026-12-27',tm:'15:00',z:'Asia/Taipei'},
+{t:'TG635 TPE → BKK ขึ้นเครื่อง',d:'2026-12-27',tm:'18:50',z:'Asia/Taipei'}],
+docs:[{l:'ขาไป',v:'TG632 BKK–TPE 23/12 08:15–12:45'},{l:'ขากลับ',v:'TG635 TPE–BKK 27/12 18:50–21:45'},{l:'ที่พัก',v:'Formosa101 Hotel · เช็กอิน 15:15 · Exit Z10'},{l:'ที่อยู่โรงแรม (จีน)',v:''},{l:'พาสปอร์ต',v:''},{l:'ประกันเดินทาง',v:''},{l:'ฉุกเฉินไต้หวัน',v:'ตำรวจ 110 · ไฟไหม้/รถพยาบาล 119'}],
+c1:['พาสปอร์ต (เหลืออายุเกิน 6 เดือน)','ตั๋วเครื่องบิน / เช็กอินออนไลน์แล้ว','ยืนยันการจองที่พัก','eSIM / ซิมอินเทอร์เน็ต','เงินสด TWD + บัตร','พาวเวอร์แบงค์ (ใส่กระเป๋าถือ) + สายชาร์จ','ปลั๊ก/อะแดปเตอร์','ยาประจำตัว / ประกัน','โหลดแผนที่ Google Maps ออฟไลน์','เสื้อผ้าตามชุด OOTD'].map(it),
+c2:['เช็กของในห้อง (ที่ชาร์จ พาสปอร์ต)','คืนกุญแจ / เช็กเอาต์','ซื้อของฝากครบ','ของเหลวในกระเป๋าเช็กอิน (ถือขึ้นเครื่องไม่เกิน 100 ml)','ใช้บัตรโดยสารให้หมด/คืนมัดจำ','บอร์ดดิ้งพาส TG635 พร้อม','เก็บใบเสร็จ/ขอคืนภาษี (ถ้ามี)'].map(it)};
+
+const T={stop:s('','','',''),it:it(''),food:{n:'',a:'',d:0},doc:{l:'',v:''},key:{t:'',d:'2026-12-23',tm:'09:00',z:'Asia/Taipei'}};
+const P=[['🛍️ ซื้อของ',[['這個多少錢？','Zhège duōshǎo qián?','อันนี้ราคาเท่าไหร่'],['可以便宜一點嗎？','Kěyǐ piányi yìdiǎn ma?','ลดหน่อยได้ไหม'],['我要這個','Wǒ yào zhège','ขอเอาอันนี้'],['有別的顏色嗎？','Yǒu bié de yánsè ma?','มีสีอื่นไหม'],['有大一點的嗎？','Yǒu dà yìdiǎn de ma?','มีไซส์ใหญ่กว่านี้ไหม'],['可以刷卡嗎？','Kěyǐ shuākǎ ma?','รูดบัตรได้ไหม'],['可以退稅嗎？','Kěyǐ tuìshuì ma?','ขอคืนภาษีได้ไหม'],['我只是看看','Wǒ zhǐshì kànkan','แค่ดูเฉยๆ'],['不用袋子，謝謝','Bú yòng dàizi, xièxie','ไม่เอาถุง ขอบคุณ']]],
+['🍜 สั่งอาหาร',[['請給我菜單','Qǐng gěi wǒ càidān','ขอเมนู'],['有英文菜單嗎？','Yǒu Yīngwén càidān ma?','มีเมนูภาษาอังกฤษไหม'],['我要這個','Wǒ yào zhège','เอาอันนี้'],['不要辣','Bú yào là','ไม่เผ็ด'],['不要香菜','Bú yào xiāngcài','ไม่ใส่ผักชี'],['我不吃牛肉','Wǒ bù chī niúròu','ไม่กินเนื้อวัว'],['內用','Nèiyòng','ทานที่ร้าน'],['外帶','Wàidài','ห่อกลับ'],['去冰','Qù bīng','ไม่ใส่น้ำแข็ง'],['微糖','Wēi táng','หวานน้อย'],['請給我水','Qǐng gěi wǒ shuǐ','ขอน้ำ'],['買單','Mǎidān','คิดเงินด้วย'],['很好吃！','Hěn hǎochī!','อร่อยมาก']]],
+['🧭 ถามทาง',[['請問＿＿在哪裡？','Qǐngwèn ＿＿ zài nǎlǐ?','ขอถามหน่อย ＿＿ อยู่ที่ไหน'],['廁所在哪裡？','Cèsuǒ zài nǎlǐ?','ห้องน้ำอยู่ไหน'],['捷運站怎麼走？','Jiéyùn zhàn zěnme zǒu?','ไปสถานี MRT ยังไง'],['這班公車到＿＿嗎？','Zhè bān gōngchē dào ＿＿ ma?','รถเมล์คันนี้ไป ＿＿ ไหม'],['請帶我到這個地址','Qǐng dài wǒ dào zhège dìzhǐ','พาไปที่อยู่นี้ (แท็กซี่)'],['我迷路了','Wǒ mílù le','ฉันหลงทาง'],['請問可以幫我拍照嗎？','Qǐngwèn kěyǐ bāng wǒ pāizhào ma?','ช่วยถ่ายรูปให้หน่อยได้ไหม'],['謝謝／不好意思','Xièxie / Bù hǎoyìsi','ขอบคุณ / ขอโทษ']]]];
+
+let S=cp(D), privS={docs: cp(D.docs)}, tab='plan', day=0, edit=false, isOwner=false, saveTimer=null;
+
+async function loadData(){
+  try {
+    let { data, error } = await supabase.from('trip_public').select('data').eq('id', 'taiwan-2026').single();
+    if (data && data.data && Object.keys(data.data).length > 0) {
+      S = Object.assign(cp(D), data.data);
+    } else {
+      S = cp(D);
+      await supabase.from('trip_public').update({ data: S }).eq('id', 'taiwan-2026');
+    }
+  } catch(e) { console.error(e); }
+  
+  const today=new Date().toLocaleDateString('sv');
+  const ti=S.days.findIndex(x=>x.date==today);
+  if(ti>=0) day=ti;
+  R();
+}
+
+async function loadPrivateData(){
+  if(!isOwner) return;
+  try {
+    let { data } = await supabase.from('trip_private').select('data').single();
+    if(data && data.data) privS = data.data;
+  } catch(e){}
+}
+
+async function saveRemote(){
+  if(!isOwner) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async()=>{
+    try {
+      await supabase.from('trip_public').update({ data: S, updated_at: new Date() }).eq('id', 'taiwan-2026');
+    } catch(e){ console.error(e); }
+  }, 800);
+}
+
+async function savePrivateRemote(){
+  if(!isOwner) return;
+  try {
+    await supabase.from('trip_private').update({ data: privS, updated_at: new Date() }).eq('owner_id', (await supabase.auth.getUser()).data.user.id);
+  } catch(e){}
+}
+
+const esc=x=>String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const inp=(p,v,ph,x='')=>isOwner?`<input class="i" data-p="${p}" value="${esc(v)}" placeholder="${ph}" ${x}>`:`<input class="i" value="${esc(v)}" disabled placeholder="${ph}">`;
+const p2=n=>String(n).padStart(2,'0'), enc=encodeURIComponent;
+function gcal(t,d,tm,z,det=''){const[h,mi]=tm.split(':').map(Number),st=d.replace(/-/g,'')+'T'+p2(h)+p2(mi)+'00',e=new Date(Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10),h,mi+30)),es=e.getUTCFullYear()+p2(e.getUTCMonth()+1)+p2(e.getUTCDate())+'T'+p2(e.getUTCHours())+p2(e.getUTCMinutes())+'00';return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+enc(t)+'&dates='+st+'/'+es+'&ctz='+z+'&details='+enc(det)}
+const tmOk=t=>/^\d{1,2}:\d{2}$/.test(t);
+
+function plan(){
+  const d=S.days[day], pre='days.'+day, dn=d.stops.filter(x=>x.d).length;
+  let h='<div class="tabs">'+S.days.map((x,i)=>`<button data-a="day" data-i="${i}" class="${i==day?'on':''}">${esc(x.h)}${x.date==today?' ⭐':''}</button>`).join('')+'</div><div class="card">';
+  h+=(isOwner && edit)?inp(pre+'.h',d.h,'ชื่อวัน')+inp(pre+'.s',d.s,'ธีม')+inp(pre+'.date',d.date,'วันที่','type="date"'):`<h3>${esc(d.h)} · ${esc(d.s)}</h3>`;
+  h+=`<div class="m">✅ ${dn}/${d.stops.length} · <a style="color:var(--g)" target="_blank" href="https://www.google.com/maps/dir/${d.stops.map(x=>enc(x.q)).join('/')}">🗺 เส้นทางทั้งวัน</a></div>`+(isOwner&&edit?inp(pre+'.o',d.o,'👕 ชุดวันนี้ (พิมพ์โน้ต OOTD)'):`<div class="m">👕 ชุด: ${esc(d.o)||'-'}</div>`);
+  
+  d.stops.forEach((x,i)=>{const p=`${pre}.stops.${i}`;
+    h+=`<div class="st"><input type="checkbox" data-p="${p}.d" ${x.d?'checked':''} ${!isOwner?'disabled':''}><div class="b">`+
+    (isOwner&&edit ? inp(p+'.t',x.t,'เวลา เช่น 09:30')+inp(p+'.n',x.n,'สถานที่')+inp(p+'.m',x.m,'การเดินทาง/โน้ต')+inp(p+'.q',x.q,'คำค้นใน Google Maps')+`<button class="x" data-a="del" data-p="${pre}.stops" data-i="${i}">🗑 ลบ</button>`
+    :`<div class="${x.d?'dn':''}"><span class="tm">${esc(x.t)}</span> <b>${esc(x.n)}</b></div>${x.m?`<div class="m">🚆 ${esc(x.m)}</div>`:''}<div class="lk"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${enc(x.q||x.n)}">📍แผนที่</a><a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${enc(x.q||x.n)}&travelmode=transit">🧭นำทาง</a>${tmOk(x.t)&&d.date?`<a target="_blank" href="${gcal(x.n,d.date,x.t,'Asia/Taipei',x.m)}">⏰เตือน</a>`:''}</div>`) + '</div></div>';
+  });
+  return h + (isOwner&&edit?`<button class="ad" data-a="add" data-p="${pre}.stops" data-k="stop">+ เพิ่มสถานที่</button>`:'') + '</div>';
+}
+
+const lst=p=>gp(p).map((x,i)=>`<div class="r"><input type="checkbox" data-p="${p}.${i}.d" ${x.d?'checked':''} ${!isOwner?'disabled':''}>`+(isOwner&&edit?inp(p+'.'+i+'.t',x.t,'รายการ')+`<button class="x" data-a="del" data-p="${p}" data-i="${i}">✕</button>`:`<span class="${x.d?'dn':''}">${esc(x.t)}</span>`)+'</div>').join('') + (isOwner&&edit?`<button class="ad" data-a="add" data-p="${p}" data-k="it">+ เพิ่ม</button>`:'');
+const gp=p=>p.split('.').reduce((o,k)=>o[k],S);
+
+const lists=()=>`<div class="card"><h3>✈️ เช็กลิสต์ก่อนบิน</h3>${lst('c1')}</div><div class="card"><h3>🏠 เช็กลิสต์ก่อนกลับ</h3>${lst('c2')}</div><div class="card"><h3>🛒 ของที่ต้องซื้อ</h3>${lst('shop')}</div><div class="card"><h3>📝 โน้ต</h3>${isOwner?`<textarea class="i" data-p="notes" placeholder="จดอะไรก็ได้">${esc(S.notes)}</textarea>`:`<div>${esc(S.notes)||'<span class="m">— ไม่มีโน้ต —</span>'}</div>`}</div>`;
+
+const food=()=>`<div class="card"><h3>🍜 ร้านอาหารที่อยากกิน</h3><div class="m">ร้านอาหารทั้งหมดในทริป</div>`+S.food.map((x,i)=>`<div class="st"><input type="checkbox" data-p="food.${i}.d" ${x.d?'checked':''} ${!isOwner?'disabled':''}><div class="b">`+(isOwner&&edit?inp(`food.${i}.n`,x.n,'ชื่อร้าน')+inp(`food.${i}.a`,x.a,'ย่าน/เมนู/โน้ต')+`<button class="x" data-a="del" data-p="food" data-i="${i}">🗑 ลบ</button>`:`<div class="${x.d?'dn':''}"><b>${esc(x.n)}</b></div><div class="m">${esc(x.a)}</div><div class="lk"><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=${enc(x.n+' '+x.a)}">📍แผนที่</a></div>`)+'</div></div>').join('')+(isOwner&&edit?`<button class="ad" data-a="add" data-p="food" data-k="food">+ เพิ่มร้าน</button>`:'')+`</div>`+snk();
+
+function wm(c){return c==0?'☀️ แจ่มใส':c<4?'⛅ มีเมฆ':c<50?'🌫 หมอก':c<70?'🌧 ฝน':c<80?'❄️ หิมะ':c<90?'🌦 ฝนซู่':'⛈ พายุ'}
+async function wx(m){const o=$('#wx');o.textContent='กำลังโหลด…';try{let la=25.03,lo=121.56;if(m=='gps'){const p=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:10000}));la=p.coords.latitude;lo=p.coords.longitude}
+const j=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=7`)).json();
+o.innerHTML=`<b>ตอนนี้ ${Math.round(j.current.temperature_2m)}°C</b> ${wm(j.current.weather_code)}`+j.daily.time.map((t,i)=>`<div class="wr"><span>${t.slice(5)}</span><span>${wm(j.daily.weather_code[i])}</span><span>${Math.round(j.daily.temperature_2m_min[i])}–${Math.round(j.daily.temperature_2m_max[i])}°C</span><span>☔${j.daily.precipitation_probability_max[i]??'-'}%</span></div>`).join('')}
+catch(e){o.innerHTML='โหลดไม่ได้'}}
+
+function cv(src){const r=+S.rate||1,a=$('#twd'),b=$('#thb');if(!a)return;if(src=='b')a.value=b.value?+(b.value/r).toFixed(2):'';else b.value=a.value?+(a.value*r).toFixed(2):''}
+
+const tools=()=>`<div class="card"><h3>🌤 อากาศ</h3><button class="ad" data-a="wx" data-v="gps">📍 ตามตำแหน่ง GPS</button><button class="ad" data-a="wx" data-v="tp">ไทเป</button><div id="wx" style="margin-top:8px" class="m">กดปุ่มเพื่อดูพยากรณ์ 7 วัน</div></div>
+<div class="card"><h3>💱 TWD ↔ THB</h3><div class="m">เรท: 1 TWD = ${S.rate} บาท</div>${isOwner?`<input class="i" type="number" step="0.01" data-p="rate" value="${S.rate}">`:''}<input class="i" id="twd" type="number" placeholder="NT$ (ดอลลาร์ไต้หวัน)"><input class="i" id="thb" type="number" placeholder="บาท"></div>`
++P.map(([n,a])=>`<div class="card"><h3>${n}</h3>`+a.map(([z,p,t])=>`<div class="ph"><div><div class="zh">${esc(z)}</div><div class="py">${esc(p)}</div><div class="m">${esc(t)}</div></div><button class="x" data-a="say" data-v="${esc(z)}">🔊</button></div>`).join('')+'</div>').join('');
+
+const docs=()=>`<div class="card"><h3>⏰ เตือนเวลาสำคัญ</h3><div class="m">เวลาสำคัญในทริป</div>`+S.keys.map((x,i)=>`<div class="st"><div class="b">`+(isOwner&&edit?inp(`keys.${i}.t`,x.t,'เรื่อง')+inp(`keys.${i}.d`,x.d,'','type="date"')+inp(`keys.${i}.tm`,x.tm,'','type="time"')+`<button class="x" data-a="del" data-p="keys" data-i="${i}">🗑 ลบ</button>`:`<div><span class="tm">${x.d.slice(5)} ${x.tm}</span> ${esc(x.t)}</div><div class="m">${x.z=='Asia/Bangkok'?'เวลาไทย':'เวลาไต้หวัน'}</div><div class="lk"><a target="_blank" href="${gcal(x.t,x.d,x.tm,x.z)}">⏰ เตือนใน Calendar</a></div>`)+'</div></div>').join('')+(isOwner&&edit?`<button class="ad" data-a="add" data-p="keys" data-k="key">+ เพิ่มเตือน</button>`:'')+`</div>
+<div class="card"><h3>📄 เอกสารสำคัญ</h3><div class="m">${isOwner?'ข้อมูลส่วนตัวของคุณ':'แสดงเฉพาะเจ้าของทริป'}</div>`+(isOwner? privS.docs.map((x,i)=>`<div class="st"><div class="b">${inp(`privDocs.${i}.l`,x.l,'หัวข้อ')}${inp(`privDocs.${i}.v`,x.v,'รายละเอียด')}<button class="x" data-a="delPriv" data-i="${i}">🗑 ลบ</button></div></div>`).join('') + `<button class="ad" data-a="addPriv">+ เพิ่มเอกสาร</button>` : `<div class="m">คุณไม่มีสิทธิ์ดูเอกสารส่วนตัวนี้</div>`) + `</div>` + (isOwner?`<div class="card"><h3>💾 จัดการระบบ</h3><button class="x" data-a="logout">🚪 ออกจากระบบเจ้าของ</button></div>`:``);
+
+const snk=()=>`<div class="card"><h3>🍡 ขนม / ของฝากที่เจอรีวิว</h3><div class="m">แตะรูปเพื่อขยาย</div>`+(isOwner?`<label class="ad" style="display:inline-block">📷 เพิ่มรูป<input type="file" accept="image/*" multiple hidden id="sf"></label>`:``)+`<div class="gr">`+S.snacks.map((x,i)=>`<div class="sn"><img src="${x.img}" data-a="zoom" data-i="${i}" alt=""><label class="sc"><input type="checkbox" data-p="snacks.${i}.d" ${x.d?'checked':''} ${!isOwner?'disabled':''}> ${x.d?'ซื้อแล้ว ✅':'ยังไม่ซื้อ'}</label>${isOwner?inp(`snacks.${i}.n`,x.n,'ชื่อ/ร้าน/ราคา'):`<div class="m">${esc(x.n)}</div>`}${isOwner?`<button class="x" data-a="del" data-p="snacks" data-i="${i}">🗑 ลบ</button>`:''}</div>`).join('')+'</div></div>';
+
+async function uploadFiles(files){
+  for(const f of files){
+    try {
+      const fn = `${Date.now()}_${Math.random().toString(36).substring(2,7)}.jpg`;
+      const { data, error } = await supabase.storage.from('trip-photos').upload(fn, f);
+      if(error) throw error;
+      const { data: pubUrl } = supabase.storage.from('trip-photos').getPublicUrl(fn);
+      S.snacks.push({img: pubUrl.publicUrl, n: '', d: 0});
+      saveRemote();
+    } catch(e){ alert('อัปโหลดรูปไม่สำเร็จ'); }
+  }
+  R();
+}
+
+document.addEventListener('change', async e=>{
+  if(e.target.id!='sf') return;
+  await uploadFiles(e.target.files);
+});
+
+function R(){
+  $('#app').innerHTML={plan,lists,food,tools,docs}[tab]();
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==tab));
+  const edBtn = $('#ed');
+  const authBtn = $('#auth-btn');
+  if(isOwner){
+    edBtn.style.display='inline-block';
+    edBtn.textContent=edit?'✔ เสร็จ':'✏️ แก้ไข';
+    authBtn.textContent='🔒 เจ้าของระบบ';
+  } else {
+    edBtn.style.display='none';
+    authBtn.textContent='🔐 ล็อกอิน';
+  }
+  cv('a'); tick();
+}
+
+function tick(){const ms=new Date('2026-12-23T08:15:00+07:00')-Date.now();$('#cd').textContent=ms<=0?'ออกเดินทางแล้ว ✈️':`${Math.floor(ms/864e5)} วัน ${Math.floor(ms%864e5/36e5)} ชม. ${Math.floor(ms%36e5/6e4)} น.`}
+
+document.addEventListener('input',e=>{
+  const t=e.target; if(!isOwner) return;
+  if(t.type=='checkbox') return;
+  if(t.dataset.p){
+    sp(t.dataset.p, t.type=='number'?+t.value:t.value);
+    saveRemote();
+    if(t.dataset.p=='rate') cv('a');
+  } else if(t.dataset.priv){
+    const i = t.dataset.i, k = t.dataset.k;
+    privS.docs[i][k] = t.value;
+    savePrivateRemote();
+  } else if(t.id=='twd') cv('a');
+  else if(t.id=='thb') cv('b');
+});
+
+function sp(p,v){const a=p.split('.'), l=a.pop(); a.reduce((o,k)=>o[k],S)[l]=v;}
+
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.type=='checkbox'&&t.dataset.p){
+    if(!isOwner) return;
+    sp(t.dataset.p, t.checked?1:0);
+    saveRemote(); R();
+  }
+});
+
+document.addEventListener('click', async e=>{
+  const b=e.target.closest('[data-a]');
+  if(b){
+    const a=b.dataset.a, p=b.dataset.p, i=+b.dataset.i;
+    if(a=='tab'){ tab=b.dataset.v; scrollTo(0,0); }
+    else if(a=='day') day=i;
+    else if(a=='ed') edit=!edit;
+    else if(a=='add'){ if(!isOwner)return; gp(p).push(cp(T[b.dataset.k])); edit=true; saveRemote(); }
+    else if(a=='del'){ if(!isOwner)return; if(!confirm('ลบรายการนี้?'))return; gp(p).splice(i,1); saveRemote(); }
+    else if(a=='zoom'){ const o=document.createElement('div'); o.style.cssText='position:fixed;inset:0;background:#000d;display:flex;align-items:center;justify-content:center;z-index:9'; o.innerHTML='<img src="'+b.src+'" style="max-width:96%;max-height:90%">'; o.onclick=()=>o.remove(); document.body.append(o); return; }
+    else if(a=='wx'){ wx(b.dataset.v); return; }
+    else if(a=='say'){ try{ const u=new SpeechSynthesisUtterance(b.dataset.v); u.lang='zh-TW'; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(x){} return; }
+    else if(a=='logout'){ await supabase.auth.signOut(); isOwner=false; edit=false; S=cp(D); R(); alert('ออกจากระบบแล้ว'); return; }
+    else if(a=='addPriv'){ privS.docs.push({l:'', v:''}); savePrivateRemote(); }
+    else if(a=='delPriv'){ privS.docs.splice(i,1); savePrivateRemote(); }
+    R();
+  }
+  
+  if(e.target.id=='auth-btn'){
+    if(isOwner){ alert('คุณอยู่ในฐานะเจ้าของระบบอยู่แล้ว'); return; }
+    const email = prompt('ใส่อีเมลเจ้าของระบบ:');
+    if(!email) return;
+    const password = prompt('ใส่รหัสผ่าน:');
+    if(!password) return;
+    
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if(error){ alert('ล็อกอินไม่สำเร็จ: '+error.message); return; }
+    
+    isOwner = true;
+    await loadPrivateData();
+    await loadData();
+    alert('ล็อกอินสำเร็จ! คุณสามารถแก้ไขข้อมูลได้แล้ว');
+  }
+});
+
+// ตรวจสอบสถานะล็อกอินเริ่มต้น และดึงข้อมูลออนไลน์
+async function initApp(){
+  const { data: { session } } = await supabase.auth.getSession();
+  if(session){ isOwner = true; await loadPrivateData(); }
+  await loadData();
+}
+
+setInterval(tick,3e4);
+initApp();
+</script></body></html>
